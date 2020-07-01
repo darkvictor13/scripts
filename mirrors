@@ -4,8 +4,9 @@ URL="https://www.archlinux.org/mirrorlist/?country=BR&protocol=http&protocol=htt
 
 if wget -q "$URL"; then
   mv -f "index.html?country=BR&protocol=http&protocol=https&ip_version=4" /tmp/src.txt
-  /home/victor/Docs/scripts/arruma_mirrors
+  arruma_mirrors
 else
-  echo "Fail!"
+  echo -e "Falhou!\nConecte a internet!"
 fi
+
 exit
