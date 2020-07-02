@@ -1,9 +1,14 @@
 #!/bin/bash
 
+TEMP="/tmp/src.txt"
+DOWNLOAD="index.html?country=BR&protocol=http&protocol=https&ip_version=4" 
 URL="https://www.archlinux.org/mirrorlist/?country=BR&protocol=http&protocol=https&ip_version=4" 
 
 if wget -q "$URL"; then
-  mv -f "index.html?country=BR&protocol=http&protocol=https&ip_version=4" /tmp/src.txt
+  [ -e "$TEMP" ] && sudo rm "$TEMP"
+  rankmirrors "$DOWNLOAD" > "$TEMP"
+  sudo rm "$DOWNLOAD"
+#  mv -f "index.html?country=BR&protocol=http&protocol=https&ip_version=4" /tmp/src.txt
   arruma_mirrors
 else
   echo -e "Falhou!\nConecte a internet!"

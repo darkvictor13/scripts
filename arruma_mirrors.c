@@ -10,19 +10,21 @@ typedef struct {
   int dia, mes, ano;
 }s_data;
 
+void ExcluiLinha(FILE *a, int linhas) {
+  for(int i = 0; i < linhas; i++) {
+    fscanf(a, "%*[^\n]%*r");
+  }
+}
+
 int lerMirrors(char **mirrors, s_data *data) {
   char aux[80];
   int i;
   FILE *arch = fopen(TEMP, "r");
   if (arch == NULL) return 0;
 
-  for(i = 0; i < 2; i++) {
-    fscanf(arch, "%*[^\n]%*r");
-  }
+  ExcluiLinha(arch, 3);
   fscanf(arch, "%*c%*c%*c%*s %*s %d-%d-%d%*r", &data->ano, &data->mes, &data->dia);
-  for(i = 0; i < 3; i++) {
-    fscanf(arch, "%*[^\n]%*r");
-  }
+  ExcluiLinha(arch, 2);
 
   for(i = 0; !feof(arch); i++) {
     fscanf(arch, "%[^\n]%*r", aux);
