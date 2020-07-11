@@ -3,15 +3,26 @@
 TEMP="/tmp/src.txt"
 DOWNLOAD="index.html?country=BR&protocol=http&protocol=https&ip_version=4" 
 URL="https://www.archlinux.org/mirrorlist/?country=BR&protocol=http&protocol=https&ip_version=4" 
+DEST="/etc/pacman.d/mirrorlist"
 
 if wget -q "$URL"; then
   [ -e "$TEMP" ] && sudo rm "$TEMP"
-  rankmirrors "$DOWNLOAD" > "$TEMP"
+  sed -i 's/#//' "$DOWNLOAD"
+  rankmirrors -n 0 "$DOWNLOAD" > "$TEMP"
   sudo rm "$DOWNLOAD"
-#  mv -f "index.html?country=BR&protocol=http&protocol=https&ip_version=4" /tmp/src.txt
-  arruma_mirrors
+  echo "$(tail -n +7 "$TEMP")" > $TEMP
+  echo "#---------------------------------#" > "$DEST"
+  echo "# Feito por:                      #" >> "$DEST"
+  echo "#---------------------------------#" >> "$DEST"
+  echo "# __     ___      _               #" >> "$DEST"
+  echo "# \ \   / (_) ___| |_ ___  _ __   #" >> "$DEST"
+  echo "#  \ \ / /| |/ __| __/ _ \| '__|  #" >> "$DEST"
+  echo "#   \ V / | | (__| || (_) | |     #" >> "$DEST"
+  echo "#    \_/  |_|\___|\__\___/|_|     #" >> "$DEST"
+  echo -e "#---------------------------------#\n" >> "$DEST"
+  cat "$TEMP" >> "$DEST"
 else
-  echo -e "Falhou!\nConecte a internet!"
+  pacman -S wget || echo -e "Falhou!\nConecte a internet!"
 fi
 
 exit
