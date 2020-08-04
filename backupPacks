@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pacman -Qeqm > all_aur.lst
+pacman -Qqe | grep -v "$(pacman -Qqm)" > all_pacman.lst
