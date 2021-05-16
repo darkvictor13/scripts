@@ -2,4 +2,4 @@
 # Retorna o numero de pacotes para atualizar
 
 UPDATE=$(pacman -Qu | wc -l)
-[ "$UPDATE" -gt 0 ] && echo "Updates = $UPDATE" || echo "Atualizado"
+[ "$UPDATE" -gt 0 ] && echo " Updates = $UPDATE " || echo "Atualizado"

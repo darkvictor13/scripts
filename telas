@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 intern=eDP
 extern=HDMI-A-0
 
 xrandr | grep "$extern disconnected" && xrandr --output "$extern" --off --output "$intern" --auto || xrandr --output "$intern" --off --output "$extern" --auto
+
+# nitrogen --restore
 
 exit
 
